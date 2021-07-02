@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  background-image: url(https://images.pexels.com/photos/1037992/pexels-photo-1037992.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940);
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+</style>
+</head>
+<body>
+
+<a class="btn btn-primary" style=font-size:25px; href="/userpage">Back to User Page</a>
+{%if albumsDetails| length==0%}
+<h1 style="font-family:mv boli;font-size:40px;">No albums found</h1>
+{%else%}
+<h1 style="font-family:mv boli;font-size:40px;">Here is the list of all albums on DBtify!</h1>
+ {% for album in albumsDetails %} 
+ <li style="font-family:candara;font-size:25px;"><b>{{"AlbumID: "}}</b>{{album[0]}}<b>{{" Genre: "}}</b>{{album[1]}}<b>{{" Title: "}}</b>{{album[2]}}<b>{{" Owner: "}}</b>{{album[3]}}{{" " + album[4]}}</li>
+   <form method="POST" action="/userpage/albums/albumSongs">
+   <input type="hidden" name="albumdet" value="{{album[0]}}{{'-'+ album[2]}}"/>  
+   <span style="float:left;"> 
+   <input type="submit" value="Get Album Songs" /></span></form>
+   <form method="POST" action="/userpage/albums">
+   <input type="hidden" name="like" value="{{album[0]}}"/> 
+   <input type="submit" value="Like!" /></form>
+ {% endfor %}
+ {% endif %}
+
+</body>
+</html> 

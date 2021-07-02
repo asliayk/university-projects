@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  background-image: url(https://images.pexels.com/photos/1037992/pexels-photo-1037992.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940);
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+</style>
+</head>
+<body>
+
+  <h1 style="font-family:candara;font-size:60px;">Hello {{userName}}! What do you want to do?</h1>
+  <h2 style="font-family:mv boli;font-size:40px;">List all songs?</h2>
+  <a class="btn btn-primary" style=font-size:20px; href="/userpage/songs">List Songs</a>
+  <h2 style="font-family:mv boli;font-size:40px;">List all artists?</h2>
+  <a class="btn btn-primary" style=font-size:20px; href="/userpage/artists">List Artists</a>
+  <h2 style="font-family:mv boli;font-size:40px;">List all albums?</h2>
+  <a class="btn btn-primary" style=font-size:20px; href="/userpage/albums">List Albums</a>
+  <h2 style="font-family:mv boli;font-size:40px;">List the songs of a spesific genre?</h2>
+  <form method="POST" action="/userpage/songsofgenre">
+    <label style="font-family:candara;font-size:25px;">Genre: </label><input type="text" name="genre" required/>
+    <input type="submit" value="List" />
+  </form>
+  <h2 style="font-family:mv boli;font-size:40px;">List the songs that contains a keyword on its title?</h2>
+  <form method="POST" action="/userpage/songsofkeyword">
+    <label style="font-family:candara;font-size:25px;">Keyword: </label><input type="text" name="keyword" required/>
+    <input type="submit" value="Find" />
+  </form>
+  <h2 style="font-family:mv boli;font-size:40px;">List the songs that you like?</h2>
+  <a class="btn btn-primary" style=font-size:20px; href="/userpage/likedsongs">List</a>
+  <h2 style="font-family:mv boli;font-size:40px;">List the songs that a user likes?</h2>
+  <form method="POST" action="/userpage/likedsongs">
+    <label style="font-family:candara;font-size:25px;">Username: </label><input type="text" name="username" required/>
+    <input type="submit" value="List" />
+  </form>
+
+</body>
+</html>   

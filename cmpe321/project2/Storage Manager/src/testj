@@ -1,0 +1,6 @@
+create type student 3 no name dep
+create record student 150 2 401
+create record student 204 1 400
+list record student
+delete record student 204
+list record student

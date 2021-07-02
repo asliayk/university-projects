@@ -1,0 +1,6 @@
+create type newbie 2 name dep
+create record newbie 1 400
+create record newbie 2 400
+list record newbie 
+search record newbie 3
+search record newbie 2

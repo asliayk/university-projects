@@ -1,0 +1,11 @@
+create type car 4 brand speed year score
+create record car 4 12345678 2019 0
+create record car 0 12345678 2019 0
+create record car 3 12345678 2019 0
+create record car 5 12345678 2019 0 
+list record car
+create record car 2 12345678 2019 0
+create record car 1 12345678 2019 0
+update record car 0 87654321 2019 0
+delete record car 1
+list record car

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  background-image: url(https://images.pexels.com/photos/1037992/pexels-photo-1037992.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940);
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+</style>
+</head>
+<body>
+
+
+<a class="btn btn-primary" style=font-size:25px; href="/userpage">Back to User Page</a>
+{% if artistAlbums |length ==0%}
+<h1 style="font-family:mv boli;font-size:40px;">No albums of that that artist found</h1>
+{% endif %}
+{% if artistAlbums |length !=0%}
+<h1 style="font-family:mv boli;font-size:40px;">Here is the list of all albums of {{artistAlbums[0][3]}}{{' ' + artistAlbums[0][4]}}!</h1>
+{% for album in artistAlbums %}
+<li style="font-family:candara;font-size:25px;"><b>{{"AlbumID: "}}</b>{{album[0]}}<b>{{" Genre: "}}</b>{{album[1]}}<b>{{" Title: "}}</b>{{album[2]}}</li>
+{% endfor %}
+{% endif %}
+
+
+</body>
+</html> 

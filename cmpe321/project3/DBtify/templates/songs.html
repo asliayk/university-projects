@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  background-image: url(https://images.pexels.com/photos/1037992/pexels-photo-1037992.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940);
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+</style>
+</head>
+<body>
+
+<a class="btn btn-primary" style=font-size:25px; href="/userpage">Back to User Page</a>
+{% if songsDetails|length==0 %}
+<h1 style="font-family:mv boli;font-size:40px;">No songs found</h1>
+{% else %}
+<h1 style="font-family:mv boli;font-size:40px;">Here is the list of all songs on DBtify!</h1>
+
+ {% for i,song in enumerate(songsDetails) %} 
+ <li style="font-family:candara;font-size:25px;"><b>{{"SongID: "}}</b>{{song[0]}}<b>{{" Song Title: "}}</b>{{song[1]}}<b>{{" Album Title: "}}</b>{{titles[i]}}<b>{{" Owner: "}}</b>{{owners[2*i] + " " + owners[2*i+1]}}<b>{{" Producers: "}}</b>{{producers[i]}}<b>{{" Total Likes: "}}</b>{{likes[i]}}</li>
+    <form method="POST" action="/userpage/songs" >
+    <input type="hidden" name="like" value="{{song[0]}}"/>   
+    <input type="submit" value="Like!" /></form>
+ 
+ {% endfor %}
+ {% endif %}
+
+</body>
+</html>  

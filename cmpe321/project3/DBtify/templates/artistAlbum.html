@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  background-image: url(https://images.pexels.com/photos/1037992/pexels-photo-1037992.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940);
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+</style>
+</head>
+<body>
+
+<a class="btn btn-primary" style=font-size:25px; href="/artistpage">Back to Main Page</a>
+{% if AlbumSongs |length ==0%}
+<h2 style="font-family:mv boli;font-size:40px;">This album is currently empty</h2>
+{% else %}
+<h1 style="font-family:mv boli;font-size:40px;">Here is the list of all songs in {{albumName}}!</h1>
+{% for song in AlbumSongs %}
+<li style="font-family:candara;font-size:25px;">{{"SongID: "}}{{song[0]}}{{" Title: " + song[1]}}</li>
+<form method="POST" action="/artistpage/album" >
+<input type="hidden" name="delete" value="{{song[0]}}"/>  
+<input type="hidden" name="albumid" value="{{albumID}}"/>  
+<input type="submit" value="Delete Song" /></form>
+{% endfor %}
+{% endif %}
+<h1 style="font-family:mv boli;font-size:40px;">Do you want to add a song to {{albumName}}?</h1>
+<form method="POST" action="/artistpage/album" >
+<label style="font-family:candara;font-size:25px;">SongID: </label> <input type="text" name="songID" required/>  
+<label style="font-family:candara;font-size:25px;">Title: </label> <input type="text" name="songtitle" required/> 
+<input type="hidden" name="albumid" value="{{albumID}}"/> 
+<input type="submit" value="Add Song" /></form>
+
+</body>
+</html>

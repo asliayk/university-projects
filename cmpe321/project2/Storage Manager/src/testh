@@ -1,0 +1,5 @@
+create type patient 3 name age sex
+create record patient 2 45 2
+create record patient 0 60 0
+create record patient 1 75 1
+list record patient

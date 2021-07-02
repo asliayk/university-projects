@@ -1,0 +1,22 @@
+create type bookStore 2 name address
+search record bookStore 1
+create record bookStore 0 214748364
+create record bookStore 1 214748364
+search record bookStore 1
+update record bookStore 1 2
+search record bookStore 1
+delete record bookStore 1
+search record bookStore 1
+search record bookStore 0
+update record bookStore 0 2
+search record bookStore 0
+create type book 2 author name
+create record book 3 2
+create record book 1 2
+list record book
+create record book 8 2
+list record book
+create record book 10 2
+create record book 5 2
+create record book 0 2
+list record book

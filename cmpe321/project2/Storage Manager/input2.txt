@@ -1,0 +1,23 @@
+create type ab 2 name order
+create type yz 2 name order
+create type cd 2 name order
+create type ef 2 name order
+create type RS 2 name order
+list type
+delete type car
+delete type COUNTRY
+delete type course
+delete type patient
+delete type song
+delete type student
+delete type guest
+delete type newbie
+delete type ab
+delete type cd
+delete type ef
+delete type yz
+delete type RS
+delete type number
+delete type alphabet
+delete type bookStore
+delete type book

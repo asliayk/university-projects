@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  background-image: url(https://images.pexels.com/photos/1037992/pexels-photo-1037992.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940);
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+</style>
+</head>
+<body>
+
+
+<a class="btn btn-primary" style=font-size:25px; href="/userpage">Back to User Page</a>
+{%if artists| length==0%}
+<h1 style="font-family:mv boli;font-size:40px;">No artist is liked</h1>
+{%else%}
+<h1 style="font-family:mv boli;font-size:40px;">Here is the list of popular artists on DBtify!</h1>
+ {% for artist in artists %} 
+ <li style="font-family:candara;font-size:25px;"><b>{{"Artist: "}}</b>{{artist[0] + " " + artist[1]}}<b>{{" Total Likes: "}}</b>{{artist[2]}}</li>
+ {% endfor %}
+{%endif%} 
+
+</body>
+</html> 

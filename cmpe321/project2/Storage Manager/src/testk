@@ -1,0 +1,7 @@
+create type guest 2 name surname
+create type lecturer 2 name dep
+create record lecturer 1 400
+create record lecturer 2 400
+list record lecturer
+delete type lecturer
+search record lecturer 2
