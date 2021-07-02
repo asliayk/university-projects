@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Browser Transactions</title>
+    <script src="erc20tokenabi.js"> </script>
+    <script src="bulotabi.js"> </script>
+    <script>
+
+        var ERC20contract = web3.eth.contract(erc20tokenabi).at("0xa6e9b50504D5D6CB59079C079c7F818FDd16b85C");
+        var BUcontract = web3.eth.contract(bulotabi).at("0x0a258d8dBA39D7BD7b7407A9a4f6eb3ccD5eA9ad");
+
+        window.addEventListener('load', async () => {
+            // Modern dapp browsers...
+            if (window.ethereum) {
+                window.web3 = new Web3(ethereum);
+                try {
+                    // Request account access if needed
+                    await ethereum.enable();
+                } catch (error) {
+                    alert("Cannot access user ethereum account");
+                }
+            }
+            // Legacy dapp browsers...
+            else if (window.web3) {
+                window.web3 = new Web3(web3.currentProvider);
+            }
+            // Non-dapp browsers...
+            else {
+                alert('Non-Ethereum browser detected. You should consider trying MetaMask!');
+            }
+
+        });
+
+        function gettokenbalance() {
+
+            var fromaddr = document.getElementById("fromaddr").value;
+            var mypromise = new Promise(function (resolve, reject) {
+                ERC20contract.balanceOf(fromaddr, function (error, response) {
+                    //web3.eth.getBalance(fromaddr,function(error, response) {
+                    if (error) {
+                        reject(error);
+                    }
+                    else {
+                        resolve(response);
+                    }
+                });
+            });
+            mypromise.then(
+                function (result) {
+                    document.getElementById("balance").innerHTML = "Balance:" + result;
+                },
+                function (err) {
+                    console.log(err);
+                });
+        }
+
+        function getHash() {
+
+            var rndNumber = document.getElementById("rndNumber2").value;
+            var mypromise = new Promise(function (resolve, reject) {
+                BUcontract.myHash.call(rndNumber, function (error, response) {
+                    //web3.eth.getBalance(fromaddr,function(error, response) {
+                    if (error) {
+                        reject(error);
+                    }
+                    else {
+                        resolve(response);
+                    }
+                });
+            });
+            mypromise.then(
+                function (result) {
+                    document.getElementById("hash2").innerHTML = "Hash Number:" + result;
+                },
+                function (err) {
+                    console.log(err);
+                });
+        }
+
+        function buyTicket() {
+
+            var hash = document.getElementById("hash").value;
+            var mypromise = new Promise(function (resolve, reject) {
+                BUcontract.buyTicket(hash, function (error, response) {
+                    //web3.eth.getBalance(fromaddr,function(error, response) {
+                    if (error) {
+                        reject(error);
+                    }
+                    else {
+                        resolve(response);
+                    }
+                });
+            });
+            mypromise.then(
+                function (result) {
+                    document.getElementById("ticket bought").innerHTML = "Status: Success!";
+                },
+                function (err) {
+                    console.log(err);
+                });
+        }
+        function revealRndNumber() {
+            var ticketNo = document.getElementById("ticketNo3").value;
+            var rndNumber = document.getElementById("rndNumber").value;
+            var mypromise = new Promise(function (resolve, reject) {
+                BUcontract.revealRndNumber(ticketNo, rndNumber, function (error, response) {
+                    //web3.eth.getBalance(fromaddr,function(error, response) {
+                    if (error) {
+                        reject(error);
+                    }
+                    else {
+                        resolve(response);
+                    }
+                });
+            });
+            mypromise.then(
+                function (result) {
+                    document.getElementById("revealMessage").innerHTML = "Reveal completed for ticket " + ticketNo;
+                },
+                function (err) {
+                    console.log(err);
+                });
+        }
+
+        function lotteryNo() {
+
+            var hash = document.getElementById("hash").value;
+            var mypromise = new Promise(function (resolve, reject) {
+                BUcontract.getCurrentLotteryNo(function (error, response) {
+                    //web3.eth.getBalance(fromaddr,function(error, response) {
+                    if (error) {
+                        reject(error);
+                    }
+                    else {
+                        resolve(response);
+                    }
+                });
+            });
+            mypromise.then(
+                function (result) {
+
+                    var newpromise = new Promise(function (resolve, reject) {
+                        BUcontract.getCurrentLotteryNo.call(function (error, response) {
+                            //web3.eth.getBalance(fromaddr,function(error, response) {
+                            if (error) {
+                                reject(error);
+                            }
+                            else {
+                                resolve(response);
+                            }
+                        });
+                    });
+                    newpromise.then(
+                        function (result) {
+                            document.getElementById("lottery no").innerHTML = "Lottery No:" + result;
+                        },
+                        function (err) {
+                            console.log(err);
+                        });
+
+                },
+                function (err) {
+                    console.log(err);
+                });
+        }
+
+        function lastBoughtTicket() {
+
+            var lottery = document.getElementById("llottery").value;
+            var mypromise = new Promise(function (resolve, reject) {
+                BUcontract.getLastBoughtTicketNo.call(lottery, function (error, response) {
+                    //web3.eth.getBalance(fromaddr,function(error, response) {
+                    if (error) {
+                        reject(error);
+                    }
+                    else {
+                        resolve(response);
+                    }
+                });
+            });
+            mypromise.then(
+                function (result) {
+                    document.getElementById("last bought ticket no").innerHTML = "Ticket No:" + result;
+                },
+                function (err) {
+                    console.log(err);
+                });
+        }
+
+        function ithBoughtTicket() {
+
+            var lottery = document.getElementById("ithlottery").value;
+            var ith = document.getElementById("ithb").value;
+            var mypromise = new Promise(function (resolve, reject) {
+                BUcontract.getIthBoughtTicketNo.call(ith, lottery, function (error, response) {
+                    //web3.eth.getBalance(fromaddr,function(error, response) {
+                    if (error) {
+                        reject(error);
+                    }
+                    else {
+                        resolve(response);
+                    }
+                });
+            });
+            mypromise.then(
+                function (result) {
+                    document.getElementById("ith bought ticket no").innerHTML = "Ticket No:" + result;
+                },
+                function (err) {
+                    console.log(err);
+                });
+        }
+
+        function checkIfTicketWon() {
+            var lottery = document.getElementById("ithlottery4").value;
+            var ticketNo = document.getElementById("ticketNo2").value;
+            var mypromise = new Promise(function (resolve, reject) {
+                BUcontract.checkIfTicketWon.call(lottery, ticketNo, function (error, response) {
+                    //web3.eth.getBalance(fromaddr,function(error, response) {
+                    if (error) {
+                        reject(error);
+                    }
+                    else {
+                        resolve(response);
+                    }
+                });
+            });
+            mypromise.then(
+                function (result) {
+                    document.getElementById("prize").innerHTML = "Prize: " + result;
+                },
+                function (err) {
+                    console.log(err);
+                });
+        }
+
+        function withdrawTicketPrize() {
+            var lottery = document.getElementById("ithlottery3").value;
+            var ticketNo = document.getElementById("ticketNo").value;
+            var mypromise = new Promise(function (resolve, reject) {
+                BUcontract.withdrawTicketPrize(lottery, ticketNo, function (error, response) {
+                    //web3.eth.getBalance(fromaddr,function(error, response) {
+                    if (error) {
+                        reject(error);
+                    }
+                    else {
+                        resolve(response);
+                    }
+                });
+            });
+            mypromise.then(
+                function (result) {
+                    document.getElementById("withdrawMessage").innerHTML = "Successful Withdraw for Ticket Number: " + ticketNo;                },
+                function (err) {
+                    console.log(err);
+                });
+        }
+
+        function ithWinningTicket() {
+
+            var lottery = document.getElementById("ilottery").value;
+            var ith = document.getElementById("ith").value;
+            var mypromise = new Promise(function (resolve, reject) {
+                BUcontract.getIthWinningTicket.call(ith, lottery, function (error, response) {
+                    //web3.eth.getBalance(fromaddr,function(error, response) {
+                    if (error) {
+                        reject(error);
+                    }
+                    else {
+                        resolve(response);
+                    }
+                });
+            });
+            mypromise.then(
+                function (result) {
+                    document.getElementById("ith winning ticket no").innerHTML = "Ticket No: " + result[0];
+                    document.getElementById("ith winning ticket prize").innerHTML = "Prize: " + result[1];
+                },
+                function (err) {
+                    console.log(err);
+                });
+        }
+
+        function getMoneyCollected() {
+            var lottery = document.getElementById("ithlottery2").value;
+            var mypromise = new Promise(function (resolve, reject) {
+                BUcontract.getMoneyCollected.call(lottery, function (error, response) {
+                    //web3.eth.getBalance(fromaddr,function(error, response) {
+                    if (error) {
+                        reject(error);
+                    } else {
+                        resolve(response);
+                    }
+                });
+            });
+            mypromise.then(
+                function (result) {
+                    document.getElementById("moneyCollected").innerHTML = "Money Collected: " + result;
+                },
+                function (err) {
+                    console.log(err);
+                });
+        }
+
+    </script>
+</head>
+
+<body>
+
+<h1>See Your Balance</h1>
+<form>
+    <p style="margin-left: 10px"> Address: <textarea id="fromaddr" rows="1" cols="80"></textarea> </p>
+</form>
+<button onclick="gettokenbalance()">Get Balance</button>
+<p id="balance"></p>
+
+<h1>Get Your Hash Number</h1>
+<form>
+    <p style="margin-left: 10px"> Random Number: <textarea id="rndNumber2" rows="1" cols="20"></textarea> </p>
+</form>
+<button onclick="getHash()">Hash It</button>
+<p id="hash2"></p>
+
+<h1>Enter Your Hash To Buy A Ticket</h1>
+<form>
+    <p style="margin-left: 10px"> Hash: <textarea id="hash" rows="1" cols="80"></textarea> </p>
+</form>
+<button onclick="buyTicket()">Buy Ticket</button>
+<p id="ticket bought"></p>
+
+<h1>Reveal Random Number</h1>
+<form>
+    <p style="margin-left: 10px"> Ticket No: <textarea id="ticketNo3" rows="1" cols="20"></textarea> </p>
+    <p style="margin-left: 10px"> Random Number: <textarea id="rndNumber" rows="1" cols="80"></textarea> </p>
+</form>
+<button onclick="revealRndNumber()">Reveal</button>
+<p id="revealMessage"></p>
+
+<h1>Get The Current Lottery Number</h1>
+<button onclick="lotteryNo()">Lottery No</button>
+<p id="lottery no"></p>
+
+<h1>Get Your Last Bought Ticket Number</h1>
+<form>
+    <p style="margin-left: 10px"> Lottery No: <textarea id="llottery" rows="1" cols="20"></textarea> </p>
+</form>
+<button onclick="lastBoughtTicket()">Ticket No</button>
+<p id="last bought ticket no"></p>
+
+<h1>Get Your i'th Bought Ticket Number</h1>
+<form>
+    <p style="margin-left: 10px"> Lottery No: <textarea id="ithlottery" rows="1" cols="20"></textarea> </p>
+    <p style="margin-left: 10px"> i: <textarea id="ithb" rows="1" cols="20"></textarea> </p>
+</form>
+<button onclick="ithBoughtTicket()">Ticket No</button>
+<p id="ith bought ticket no"></p>
+
+<h1>Check If Ticket Won</h1>
+<form>
+    <p style="margin-left: 10px"> Lottery No: <textarea id="ithlottery4" rows="1" cols="20"></textarea> </p>
+    <p style="margin-left: 10px"> Ticket No: <textarea id="ticketNo2" rows="1" cols="20"></textarea> </p>
+</form>
+<button onclick="checkIfTicketWon()">Check Ticket</button>
+<p id="prize"></p>
+
+<h1>Withdraw Ticket Prize</h1>
+<form>
+    <p style="margin-left: 10px"> Lottery No: <textarea id="ithlottery3" rows="1" cols="20"></textarea> </p>
+    <p style="margin-left: 10px"> Ticket No: <textarea id="ticketNo" rows="1" cols="20"></textarea> </p>
+</form>
+<button onclick="withdrawTicketPrize()">Withdraw Prize</button>
+<p id="withdrawMessage"></p>
+
+<h1>Get i'th Winning Ticket Number</h1>
+<form>
+    <p style="margin-left: 10px"> i: <textarea id="ith" rows="1" cols="20"></textarea> </p>
+    <p style="margin-left: 10px"> Lottery No: <textarea id="ilottery" rows="1" cols="20"></textarea> </p>
+</form>
+<button onclick="ithWinningTicket()">Ticket No</button>
+<p id="ith winning ticket no"></p>
+<p id="ith winning ticket prize"></p>
+
+<h1>Get Money Collected</h1>
+<form>
+    <p style="margin-left: 10px"> Lottery No: <textarea id="ithlottery2" rows="1" cols="20"></textarea> </p>
+</form>
+<button onclick="getMoneyCollected()">Money Collected</button>
+<p id="moneyCollected"></p>
+
+</body>
+
+</html>
