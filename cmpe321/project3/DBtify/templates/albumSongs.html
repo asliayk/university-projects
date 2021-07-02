@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  background-image: url(https://images.pexels.com/photos/1037992/pexels-photo-1037992.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940);
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+</style>
+</head>
+<body>
+
+
+<a class="btn btn-primary" style=font-size:25px; href="/userpage">Back to User Page</a>
+{% if albumSongs |length ==0%}
+<h1 style="font-family:mv boli;font-size:40px;">No song found in {{albumName}}</h1>
+{% else %}
+<h1 style="font-family:mv boli;font-size:40px;">Here is the list of the songs in {{albumName}}</h1>
+ {% for song in albumSongs %} 
+ <li style="font-family:candara;font-size:25px;"><b>{{"SongID: "}}</b>{{song[0]}}<b>{{" Title: "}}</b>{{song[1]}}</li>
+ <form method="POST" action="/userpage/albums/albumSongs" >
+    <input type="hidden" name="like2songID" value="{{song[0]}}"/>   
+    <input type="hidden" name="like2albumID" value="{{albumID}}"/> 
+    <input type="hidden" name="like2albumName" value="{{albumName}}"/> 
+    <input type="submit" value="Like!" /></form>
+
+ {% endfor %}
+ {%endif%}
+
+</body>
+</html> 

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  background-image: url(https://images.pexels.com/photos/1037992/pexels-photo-1037992.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940);
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+</style>
+</head>
+<body>
+
+<a class="btn btn-primary" style=font-size:25px; href="/userpage">Back to User Page</a>
+{%if artistsDetails| length==0%}
+<h1 style="font-family:mv boli;font-size:40px;">No artists found</h1>
+{%else%}
+<h1 style="font-family:mv boli;font-size:40px;">Here is the list of all artists on DBtify!</h1>
+  {% for artist in artistsDetails %} 
+  <li style="font-family:candara;font-size:25px;">{{artist[0]}}{{" " + artist[1]}}</li>
+    <span style="float:left;">
+    <form method="POST" action="/userpage/artists/artistSongs">
+    <input type="hidden" name="artistname" value="{{artist[0]}}{{' ' + artist[1]}}"/>   
+    <input type="submit" value="Get Songs" /></form>
+    </span><span style="float:left;">
+    <form method="POST" action="/userpage/artists/artistAlbums">
+    <input type="hidden" name="artistname" value="{{artist[0]}}{{' ' + artist[1]}}"/>   
+    <input type="submit" value="Get Albums" /></form>
+    </span>
+    <form method="POST" action="/userpage/artists/contributors">
+    <input type="hidden" name="artistname" value="{{artist[0]}}{{'-' + artist[1]}}"/>   
+    <input type="submit" value="Get Contributors" /></form>
+
+  {% endfor %}
+  <h1 style="font-family:mv boli;font-size:40px;">Click here to rank all artists! </h1>
+  <form method="POST" action="/userpage/artists/popularArtists" > 
+     <input type="submit" value="Rank!" /></form>
+{% endif %}
+
+</body>
+</html> 

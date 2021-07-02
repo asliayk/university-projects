@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  background-image: url(https://images.pexels.com/photos/1037992/pexels-photo-1037992.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940);
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+</style>
+</head>
+<body>
+
+<h1 style="font-family:candara;font-size:60px;">Hello {{artistName}}{{' ' + artistSurname}}!</h1> 
+
+{% if albums |length !=0 %}
+<h2 style="font-family:mv boli;font-size:40px;">Here are all your albums on DBtify!</h2>
+{% endif %}
+
+{% if albums |length ==0%}
+<h2 style="font-family:mv boli;font-size:40px;">You don't have an album on DBtify now.</h2>
+{% endif %}
+
+{% for album in albums %} 
+<li style="font-family:candara;font-size:25px;">
+    <b>{{"AlbumID: "}}</b>{{album[0]}}<b>{{" Genre: "}}</b>{{album[1]}}<b>{{" Title: "}}</b>{{album[2]}}</li>
+    <div style="float:left;">
+    <form method="POST" action="">
+        <input type="hidden" name="deletealbum" value="{{album[0]}}"/>   
+        <input type="submit" value="Delete Album" /></form>
+    </div> 
+    <form method="POST" action="/artistpage/album" >
+        <input type="hidden" name="albumid" value="{{album[0]}}"/>  
+        <input type="hidden" name="albumtitle" value="{{album[2]}}"/>   
+        <input type="submit" value="Add/Delete Song" /></form>
+{% endfor %}
+
+<h2 style="font-family:mv boli;font-size:30px;">Do you want to create an album now?</h2>
+<form method="POST" action="">
+    <label style="font-family:candara;font-size:25px;">AlbumID: </label><input type="text" name="AlbumID" required/>   
+    <label style="font-family:candara;font-size:25px;">Genre: </label><input type="text" name="AlbumGenre" required/> 
+    <label style="font-family:candara;font-size:25px;">Title: </label><input type="text" name="AlbumTitle" required/> 
+    <input type="submit" value="Create" />
+</form>
+
+<h2 style="font-family:mv boli;font-size:30px;">Do you want to update the title of any of your albums?</h2>
+<form method="POST" action="">
+    <label style="font-family:candara;font-size:25px;">AlbumID: </label><input type="text" name="UAlbumID" required/>   
+    <label style="font-family:candara;font-size:25px;">Title: </label><input type="text" name="UAlbumTitle" required/>  
+    <input type="submit" value="Update" />
+</form>
+
+<h2 style="font-family:mv boli;font-size:30px;">Do you want to update the genre of any of your albums?</h2>
+<form method="POST" action="">
+    <label style="font-family:candara;font-size:25px;">AlbumID: </label><input type="text" name="UAlbumID" required/>   
+    <label style="font-family:candara;font-size:25px;">Genre: </label><input type="text" name="UAlbumGenre" required/>  
+    <input type="submit" value="Update" />
+</form>
+
+<h2 style="font-family:mv boli;font-size:30px;">Do you want to update the title of any of your songs?</h2>
+<form method="POST" action="">
+    <label style="font-family:candara;font-size:25px;">SongID: </label><input type="text" name="USongID" required/>   
+    <label style="font-family:candara;font-size:25px;">Title: </label><input type="text" name="USongTitle" required/>  
+    <input type="submit" value="Update" />
+</form>
+
+<h2 style="font-family:mv boli;font-size:30px;">Do you want to add yourself to the producers of a song? </h2>
+<form method="POST" action="">
+    <label style="font-family:candara;font-size:25px;">SongID: </label><input type="text" name="SongID" required/>   
+    <input type="submit" value="Add" />
+</form>
+
+</body>
+</html>    

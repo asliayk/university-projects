@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  background-image: url(https://images.pexels.com/photos/1037992/pexels-photo-1037992.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940);
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+</style>
+</head>
+<body>
+
+
+<a class="btn btn-primary" style=font-size:25px; href="/userpage">Back to User Page</a>
+{% if artistSongs |length ==0%}
+<h1 style="font-family:mv boli;font-size:40px;">No songs of that artist found in DBtify </h1>
+{% else %}
+<h1 style="font-family:mv boli;font-size:40px;">Here is the list of {{artistName+"'s"}} songs in DBtify!</h1>
+
+ {% for song in artistSongs %} 
+ <li style="font-family:candara;font-size:25px;"><b>{{"SongID: "}}</b>{{song[0]}}<b>{{" Title: "}}</b>{{song[1]}}</li>
+    <form method="POST" action="/userpage/artists/artistSongs" >
+    <input type="hidden" name="like" value="{{song[0]}}"/>   
+    <input type="hidden" name="artistname" value="{{artistName}}"/>  
+    <input type="submit" value="Like!" /></form>
+ {% endfor %}
+ <h1 style="font-family:mv boli;font-size:40px;">Click here to view the popular songs of {{artistName}} </h1>
+ <form method="POST" action="/userpage/songs/popularsongs" >
+    <input type="hidden" name="artistname" value="{{artistName}}"/>   
+    <input type="submit" value="View!" /></form>
+ {% endif %}
+
+ </body>
+ </html>
